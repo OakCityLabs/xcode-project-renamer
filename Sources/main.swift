@@ -97,12 +97,16 @@ class XcodeProjectRenamer: NSObject {
     }
     
     private func shouldSkip(_ element: String) -> Bool {
+        if element.contains(".swiftlint.yml") {
+            return false
+        }
+        
         guard
             !element.hasPrefix("."),
             !element.contains(".DS_Store"),
             !element.contains("Carthage"),
-            !element.contains("Pods"),
-            !element.contains("fastlane")
+            !element.contains("Pods")
+//            !element.contains("fastlane")
         else { return true }
         
         let fileExtension = URL(fileURLWithPath: element).pathExtension
